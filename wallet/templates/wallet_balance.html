@@ -1,0 +1,179 @@
+{% load static %}
+<html>
+<head>
+    <style>
+        body {
+            background: url("{% static 'баланс.png' %}") no-repeat;
+            background-size: 100% 100%;
+        }
+        #buttoncopy {
+            position: absolute;
+            top: 216px;
+            left: 846px;
+            width: 90px;
+            height: 45px;
+            background: url("{% static 'тень.png' %}") no-repeat;
+            border: none;
+            background-size: contain;
+            opacity: 0; /* Начальная невидимость */
+            transition: opacity 0.3s ease-in-out; /* Плавное появление */
+        }
+        #buttoncopy:hover {
+            opacity: 1; /* Появление при наведении курсора */
+        }
+        #user {
+            top: 27px;
+            left: 525px;
+            position: absolute;
+            width: 20%;
+            height: 8%;
+            opacity: 0.9;
+            background: url("{% static 'user.png' %}") no-repeat;
+            background-size: contain;
+            transition: opacity 0.3s ease-in-out;
+            user-select: none;
+            z-index: 9998;
+        }
+        #user:hover {
+            opacity: 0.7;
+        }
+        #information {
+            position: absolute;
+            top: 80px;
+            left: 527px;
+            width: 285px;
+            height: 30px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: none;
+        }
+        #information #username {
+            margin-top: -5px;
+            color: #FFD700;
+            font-size: 22px;
+            display: inline;
+            margin-right: 5px;
+        }
+        #address-display {
+            position: absolute;
+            top: 225px;
+            left: 723px;
+            font-size: 22px;
+            color: #FFD700;
+            user-select: none;
+        }
+        #balance-display {
+            position: absolute;
+            top: 270px;
+            left: 645px;
+            font-size: 75px;
+            color: #fff;
+            user-select: none;
+        }
+        #email-display {
+            position: absolute;
+            top: 20px;
+            left: 575px;
+            font-size: 20px;
+            color: #fff;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        #address-display, #balance-display, #balance-in-usdt, #email-display {
+            font-family: Arial, sans-serif;
+        }
+        #balance-in-usdt {
+            position: absolute;
+            top: 410px;
+            left: 700px;
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.6;
+            user-select: none;
+        }
+        .button-container {
+            position: absolute;
+            top: 500px;
+            left: 690px;
+        }
+        .reload-button {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+        #hide {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+    <script>
+
+        function showInformation() {
+            document.getElementById('information').style.display = 'block';
+        }
+
+        function hideInformation() {
+            document.getElementById('information').style.display = 'none';
+        }
+
+        function copyToClipboard() {
+            const addressElement = document.getElementById('wallet-address-full');
+            const textArea = document.createElement('textarea');
+            textArea.value = addressElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            const notification = document.createElement('div');
+            notification.textContent = 'Адрес скопирован в буфер обмена';
+            notification.style.position = 'fixed';
+            notification.style.top = '177px';
+            notification.style.left = '49%';
+            notification.style.transform = 'translateX(-50%)';
+            notification.style.padding = '7px';
+            notification.style.backgroundColor = '#fff';
+            notification.style.color = '#FFD700';
+            notification.style.borderRadius = '20px';
+            notification.style.zIndex = '9999';
+            document.body.appendChild(notification);
+
+            setTimeout(function () {
+                document.body.removeChild(notification);
+            }, 3000);
+        }
+
+        function reloadPage() {
+            location.reload();
+        }
+    </script>
+</head>
+<body>
+    <div id="user" onclick="showInformation()" ></div>
+    <div id="information" >
+        <p id="username">Логин: {{ username }}</p>
+        <button id="hide"  onclick="hideInformation()">Скрыть</button>
+    </div>
+    <span id="address-display" oncopy="return false" oncut="return false" onpaste="return false">{{ address|slice:":9" }}</span>
+    <span id="wallet-address-full" style="display: none;">{{ address }}</span>
+    <button id="buttoncopy" onclick="copyToClipboard()"></button>
+    <p id="balance-display">{{ balance }} BNB</p>
+    <p id="email-display">{{ email }}</p>
+    <p id="balance-in-usdt">{{ usd_balance }} USD</p>
+    <div class="button-container">
+        <button class="reload-button" onclick="reloadPage()">Обновить баланс</button>
+    </div>
+</body>
+</html>
+
+
+
+

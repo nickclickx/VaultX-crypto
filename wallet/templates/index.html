@@ -1,0 +1,26 @@
+{% load static %}
+<html>
+<head>
+    <style>
+        body {
+            background-image: url("{% static 'стартффон.png' %}");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        #button0 {
+            position: absolute;
+            top: 524px;
+            left: 620px;
+            width: 20%;
+            height: 10%;
+            background-image: url("{% static 'добропожаловать.png' %}");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <a id="button0" href="{% url 'registration' %}"></a>
+</body>
+</html>

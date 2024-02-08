@@ -1,0 +1,92 @@
+{% load static %}
+<html>
+<head>
+    <style>
+        body {
+            background: url("{% static 'фонвход.png' %}") no-repeat;
+            background-size: 100% 100%;
+        }
+        input {
+            position: absolute;
+            width: 335px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            outline: none;
+            text-indent: 20px;
+            z-index: 1;
+        }
+        #username {
+            top: 233px;
+            left: 528px;
+        }
+        #password {
+            top: 313px;
+            left: 528px;
+        }
+        #email {
+            top: 395px;
+            left: 528px;
+        }
+        #button2 {
+            position: absolute;
+            top: 470px;
+            left: 480px;
+            width: 140px;
+            height: 40px;
+            background: url("{% static 'кнопкавход.png' %}") no-repeat;
+            border: none;
+            background-size: contain;
+        }
+        #button1 {
+            position: absolute;
+            top: 554px;
+            left: 860px;
+            width: 264px;
+            height: 40px;
+            background: url("{% static 'кнопкарегистрации1.png' %}") no-repeat;
+            background-size: contain;
+        }
+        #fields {
+            top: 210px;
+            left: 430px;
+            position: absolute;
+            width: 70%;
+            height: 35%;
+            background: url("{% static 'поляввода.png' %}") no-repeat;
+            background-size: contain;
+        }
+        #error3 {
+            background: url("{% static 'ошибка3.png' %}") no-repeat;
+            top: 170px;
+            left: 520px;
+            position: absolute;
+            width: 20%;
+            height: 10%;
+            background-size: contain;
+            z-index: 1;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+    <form id="form" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {% if 'ошибка3' in errors %}
+            <a id="error3"></a>
+        {% endif %}
+        <input type="text" name="username" id="username" required value="{{ username }}" autocomplete="on">
+        <input type="password" name="password" id="password" autocomplete="on" value="{{ password }}" required>
+        <input type="email" name="email" id="email" autocomplete="on" value="{{ email }}" required>
+        <button id="button2"></button>
+    </form>
+    <a href="{% url 'registration' %}">
+        <div id="button1"></div>
+    </a>
+    <a id="fields"></a>
+</body>
+</html>
+

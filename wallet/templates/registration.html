@@ -1,0 +1,112 @@
+{% load static %}
+<html>
+<head>
+    <style>
+        body {
+            background: url("{% static 'фонрегистрации.png' %}") no-repeat;
+            background-size: 100% 100%;
+        }
+        input {
+            position: absolute;
+            width: 350px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            outline: none;
+            text-indent: 20px;
+            z-index: 1;
+        }
+        #username {
+            top: 233px;
+            left: 528px;
+        }
+        #password {
+            top: 313px;
+            left: 528px;
+        }
+        #email {
+            top: 395px;
+            left: 528px;
+        }
+        #button2 {
+            position: absolute;
+            top: 554px;
+            left: 960px;
+            width: 140px;
+            height: 40px;
+            background: url("{% static 'кнопкавход.png' %}") no-repeat;
+            background-size: contain;
+        }
+        #button1 {
+            position: absolute;
+            top: 470px;
+            left: 480px;
+            width: 264px;
+            height: 40px;
+            background: url("{% static 'кнопкарегистрации1.png' %}") no-repeat;
+            border: none;
+            background-size: contain;
+        }
+        #fields {
+            top: 210px;
+            left: 430px;
+            position: absolute;
+            width: 70%;
+            height: 35%;
+            background: url("{% static 'поляввода.png' %}") no-repeat;
+            background-size: contain;
+        }
+        #error1 {
+            background: url("{% static 'ошибка1.png' %}") no-repeat;
+        }
+        #error2 {
+            background: url("{% static 'ошибка2.png' %}") no-repeat;
+        }
+        #error4 {
+            background: url("{% static 'ошибка4.png' %}") no-repeat;
+        }
+        #error1, #error2, #error4 {
+            top: 175px;
+            left: 520px;
+            position: absolute;
+            width: 36%;
+            height: 10%;
+            background-size: contain;
+            z-index: 1;
+        }
+    </style>
+    <script>
+            //nothing
+    </script>
+</head>
+<body>
+    <form id="form" method="post" action="{% url 'registration' %}">
+        {% csrf_token %}
+        {% if 'ошибка1' in errors %}
+            <a id="error1"></a>
+        {% endif %}
+        {% if 'ошибка2' in errors %}
+            <a id="error2"></a>
+        {% endif %}
+        {% if 'ошибка4' in errors %}
+            <a id="error4"></a>
+        {% endif %}
+        <input type="text" name="username" id="username" required value="{{ username }}" autocomplete="off">
+        <input type="password" name="password" id="password"  value="{{ password }}" required>
+        <input type="email" name="email" id="email" autocomplete="on" value="{{ email }}" required>
+        <button id="button1"></button>
+    </form>
+    <a href="{% url 'login' %}">
+        <div id="button2"></div>
+    </a>
+    <a id="fields"></a>
+</body>
+</html>
+
+
+
+
+
+
+
